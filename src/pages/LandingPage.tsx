@@ -4,6 +4,7 @@ function LandingPage() {
   const route = [
     { id: 1, name: "logicaltest" },
     { id: 2, name: "pokemontest" },
+    { id: 3, name: "learning-redux" },
   ];
 
   const navigate = useNavigate();

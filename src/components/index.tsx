@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import HorizontalProgress from "./Horizontal";
 import Loading from "./Loading";
+import Button from "./Button";
 
 export {
   Card,
@@ -14,4 +15,5 @@ export {
   Header,
   HorizontalProgress,
   Loading,
+  Button
 };
