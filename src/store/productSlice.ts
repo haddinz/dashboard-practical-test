@@ -2,9 +2,11 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
+  PayloadAction,
 } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ProductSlice } from "../types/product";
+import { RootState } from "./store";
 
 interface saveProduct {
   barang: string;
@@ -14,7 +16,7 @@ interface saveProduct {
 interface updateProduct {
   barang: string;
   price: number;
-  id: number;
+  id: string;
 }
 
 export const getProduct = createAsyncThunk("product/getProduct", async () => {
@@ -49,7 +51,7 @@ export const updateProduct = createAsyncThunk(
 
 export const deleteProduct = createAsyncThunk(
   "product/deleteProduct",
-  async ({ id }: { id: number }) => {
+  async (id: string) => {
     await axios.delete(`http://localhost:4000/products/${id}`);
     return id;
   }
@@ -64,8 +66,30 @@ const productSlice = createSlice({
   initialState: productEntry.getInitialState(),
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getProduct.fulfilled, (state, action) => {
-      productEntry.setAll(state, action.payload);
-    });
+    builder
+      .addCase(getProduct.fulfilled, (state, action) => {
+        productEntry.setAll(state, action.payload);
+      })
+      .addCase(saveProduct.fulfilled, (state, action) => {
+        productEntry.addOne(state, action.payload);
+      })
+      .addCase(deleteProduct.fulfilled, (state, action) => {
+        productEntry.removeOne(state, action.payload);
+      })
+      .addCase(
+        updateProduct.fulfilled,
+        (state, action: PayloadAction<ProductSlice>) => {
+          productEntry.updateOne(state, {
+            id: action.payload.id,
+            changes: action.payload,
+          });
+        }
+      );
   },
 });
+
+export const productSelectors = productEntry.getSelectors(
+  (state: RootState) => state.product
+);
+
+export default productSlice.reducer;

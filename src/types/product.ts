@@ -1,5 +1,5 @@
 export type ProductSlice = {
-  id: number;
+  id: string;
   barang: string;
-  price: string;
+  price: number;
 };

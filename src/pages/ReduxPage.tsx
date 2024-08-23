@@ -17,6 +17,7 @@ function ReduxPage() {
 
   return (
     <div>
+      <p>hai</p>
       <h2>{count}</h2>
       <Button name="increment" onClickHandler={incrementHandler} />
       <Button name="decrement" onClickHandler={decrementHandler} />

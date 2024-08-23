@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
   const route = [
-    { id: 1, name: "logicaltest" },
-    { id: 2, name: "pokemontest" },
-    { id: 3, name: "learning-redux" },
+    { id: 1, link: "logicaltest" , name: "logical test"},
+    { id: 2, link: "pokemontest" , name: "pokemont test"},
+    { id: 3, link: "learning-redux", name: "leaning redux"},
+    { id: 4, link: "product/get-product", name: "get product"},
   ];
 
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ function LandingPage() {
       <div className="p-6 bg-white rounded-2xl flex justify-center items-center">
         <ul>
           {route.map((item, index) => (
-            <li onClick={() => navigate(`/${item.name}`)} key={index} className="cursor-pointer hover:text-green-500">
+            <li onClick={() => navigate(`/${item.link}`)} key={index} className="cursor-pointer hover:text-green-500">
               {item.name}
             </li>
           ))}
